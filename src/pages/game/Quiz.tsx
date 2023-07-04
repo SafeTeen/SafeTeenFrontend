@@ -1,7 +1,7 @@
 import React from "react";
 
-const Game = () => {
+const Quiz = () => {
   return <></>;
 };
 
-export default Game;
+export default Quiz;

@@ -13,8 +13,8 @@ const BottomFixedTab = () => {
   const TabElement = [
     {
       title: "홈",
-      img: <HomeIcon isActive={"/main" === pathname} />,
-      link: "/main",
+      img: <HomeIcon isActive={"/" === pathname} />,
+      link: "/",
     },
     {
       title: "게임",
