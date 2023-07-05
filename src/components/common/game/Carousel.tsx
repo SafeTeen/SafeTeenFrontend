@@ -79,8 +79,9 @@ const StyledSlider = styled(Slider)`
   }
   .slick-prev {
     left: 4px;
-    ::before {
+    &::before {
       font-size: 0;
+      color: none;
     }
   }
   .slick-next {
