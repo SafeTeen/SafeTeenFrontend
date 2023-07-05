@@ -14,7 +14,6 @@ interface selectProps {
 const SelectButton = ({i, choose, clicked, disabled, collect, showed}: selectProps) => {
     const [status, setStatus] = useState<"default" | "collect" | "wrong">("default");
     useEffect(() => {
-        console.log(showed);
         if (i === collect && showed) {
             setStatus("collect");
         }

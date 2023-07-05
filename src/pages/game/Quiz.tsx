@@ -25,7 +25,12 @@ const Quiz = () => {
 
     const navigate = useNavigate();
 
-    const {problem, choose, collect}: problemType = 화재대응퀴즈[currentIdx];
+    const whatQuiz = () => {
+        if (title === "화재 대응") return 화재대응퀴즈[currentIdx];
+        else return 화재대응퀴즈[currentIdx];
+    }
+
+    const {problem, choose, collect}: problemType = whatQuiz();
 
     useEffect(() => {
         if (showed) return;
