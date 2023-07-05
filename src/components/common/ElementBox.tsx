@@ -13,7 +13,7 @@ interface boxProps {
 const ElementBox = ({main, titleText, bodyText, url, moveTo}: boxProps) => {
     const navigate = useNavigate();
     return (
-        <Box main={main} onClick={()=>navigate(moveTo)}>
+        <Box main={main} onClick={() => navigate(moveTo)}>
             <Img main={main} src={url}/>
             <TextDiv main={main}>
                 <p>{titleText}</p>
@@ -44,12 +44,15 @@ const TextDiv = styled.div<boolProps>`
     color: ${props => props.main ? theme.color.main500 : theme.color.black};
   }
 `
-const Img = styled.img<boolProps>`
+const Img = styled.div<{ main: boolean | undefined, src: string }>`
   width: 48px;
   height: 48px;
-  object-fit: cover;
   background-color: ${props => props.main ? theme.color.gray300 : theme.color.white};
   border-radius: 100%;
+  background-image: url(${props => props.src});
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 74%;
 `
 const Box = styled.div<boolProps>`
   display: flex;

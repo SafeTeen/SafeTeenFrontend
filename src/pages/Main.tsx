@@ -1,15 +1,28 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {TextLogo} from "../assets/common/TextLogo";
 import styled from "styled-components";
 import BottomFixedTab from "../components/common/BottomFixedTab";
 import ElementBox from "../components/common/ElementBox";
+import fire from "../assets/img/fire.png";
+import 감기 from "../assets/img/rkarl.png";
 
 const Main = () => {
     const challenge = [
-        {title: "화재 경보기 점검하고", body: "100 포인트 받기", url: "", to: "/"},
-        {title: "화재 경보기 점검하고", body: "100 포인트 받기", url: "", to: "/"},
-        {title: "화재 경보기 점검하고", body: "100 포인트 받기", url: "", to: "/"},
-    ]
+        {title: "화재 경보기 점검하고", body: "100 포인트 받기", url: fire, to: "/"},
+        {title: "화재 경보기 점검하고", body: "100 포인트 받기", url: fire, to: "/"},
+        {title: "화재 경보기 점검하고", body: "100 포인트 받기", url: fire, to: "/"},
+    ];
+    const testUser = {
+        name: "홍길동",
+        point: 600,
+        rating: "감기",
+        nextPoint: 1200
+    }
+    const [progress, setProgress] = useState<number>(0);
+
+    useEffect(() => {
+        setProgress(((testUser.point) / testUser.nextPoint) * 100);
+    }, [testUser.point]);
 
     return (
         <>
@@ -21,14 +34,15 @@ const Main = () => {
                         <p>감기</p>
                     </UpDiv>
                     <Chart>
-                        <Img src=""/>
+                        <Img src={감기}/>
                         <StyledSVG viewBox="0 0 200 200">
                             <OuterCircle cx="100" cy="100" r="96"/>
                             <ProgressCircle
                                 cx="100"
                                 cy="100"
                                 r="96"
-                                progress={80 / 100}
+                                strokeDasharray={2 * Math.PI * 96}
+                                strokeDashoffset={2 * Math.PI * 96 - (2 * Math.PI * 96 * progress) / 100}
                             />
                             <InnerCircle cx="100" cy="100" r="79"/>
                         </StyledSVG>
@@ -36,8 +50,8 @@ const Main = () => {
                     <BottomDivBox>
                         <p>리워드 포인트</p>
                         <BottomDiv>
-                            <p>600</p>
-                            <p>/1200</p>
+                            <p>{testUser.point}</p>
+                            <p>/{testUser.nextPoint}</p>
                         </BottomDiv>
                     </BottomDivBox>
                 </RatingBox>
@@ -79,12 +93,10 @@ const OuterCircle = styled.circle`
   stroke: ${({theme}) => theme.color.gray300};
   stroke-width: 8;
 `;
-const ProgressCircle = styled.circle<{ progress: number }>`
+const ProgressCircle = styled.circle<{ progress?: number }>`
   fill: none;
   stroke: ${({theme}) => theme.color.main500};
   stroke-width: 8;
-  stroke-dasharray: ${(props) => 2 * Math.PI * 90};
-  stroke-dashoffset: ${(props) => 2 * Math.PI * 90 * (1 - props.progress)};
   stroke-linecap: round;
   transform: rotate(-90deg);
   transform-origin: center;
