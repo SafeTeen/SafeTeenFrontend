@@ -1,11 +1,16 @@
 import React, {useEffect, useState} from "react";
 import TopBar from "../../components/common/TopBar";
-import {useSearchParams} from "react-router-dom";
+import {useNavigate, useSearchParams} from "react-router-dom";
 import styled from "styled-components";
 import fire from "../../assets/img/fire.png";
 import {theme} from "../../styles/theme";
 import {problemType, 화재대응퀴즈} from "../../assets/Problem/fire";
 import SelectButton from "../../components/common/game/SelectButton";
+import 건강검진이상무 from "../../assets/img/rjsrkdrjawlsdltkdan.png";
+import 허리디스크 from "../../assets/img/gjfleltmzm.png";
+import 심장마비 from "../../assets/img/tlawkdakql.png";
+import 감기 from "../../assets/img/rkarl.png";
+import 독감 from "../../assets/img/ehrrka.png";
 
 const Quiz = () => {
     const [userCount, setUserCount] = useState<number>(1);
@@ -17,6 +22,8 @@ const Quiz = () => {
     const [showed, setShowed] = useState<boolean>(false);
     const [searchParams] = useSearchParams();
     const title = searchParams.get('title');
+
+    const navigate = useNavigate();
 
     const {problem, choose, collect}: problemType = 화재대응퀴즈[currentIdx];
 
@@ -35,28 +42,28 @@ const Quiz = () => {
     }, [time, currentIdx, page])
 
     useEffect(() => {
-        if (userCount >= 10) {
-            setTimeout(() => setPage('playing'), 2000);
+        if (userCount >= 5) {
+            setTimeout(() => setPage('playing'), 4000);
         }
     }, [userCount])
 
     document.onkeydown = (e) => {
-        if (e.key === '=' || e.key === '+') setUserCount(prev => prev + 1 <= 10 ? prev + 1 : prev);
+        if (e.key === '=' || e.key === '+') setUserCount(prev => prev + 1 <= 5 ? prev + 1 : prev);
     }
 
     const compare = (i: number | undefined) => {
         setShowed(true);
         setDisabled(true);
-        if (i === collect) setPoint(prev => prev + 20);
-        else setPoint(prev => prev - 5);
+        if (i === collect && currentIdx < 9) setPoint(prev => prev + 20);
+        else if (i !== collect && currentIdx < 9) setPoint(prev => prev - 5);
         setTimeout(() => {
             setCurrentIdx(prev => prev + 1 < 10 ? prev + 1 : prev);
-            setTime(10);
             setDisabled(false);
             if (currentIdx >= 9) {
                 setPage("ending");
             } else {
                 setShowed(false);
+                setTime(10);
             }
         }, 3000);
     }
@@ -94,6 +101,50 @@ const Quiz = () => {
                     <p>{userCount}명 중</p>
                     <p>1등</p>
                 </TexutuDiv>
+                <List>
+                    <p>전체 순위</p>
+                    <Rank>
+                        <JustRank>
+                            <p>1</p>
+                            <RankImg src={건강검진이상무}/>
+                            <p>최승우</p>
+                        </JustRank>
+                        <p>{point}</p>
+                    </Rank>
+                    <Rank>
+                        <JustRank>
+                            <p>2</p>
+                            <RankImg src={허리디스크}/>
+                            <p>박휘웅</p>
+                        </JustRank>
+                        <p>160</p>
+                    </Rank>
+                    <Rank>
+                        <JustRank>
+                            <p>3</p>
+                            <RankImg src={심장마비}/>
+                            <p>정승훈</p>
+                        </JustRank>
+                        <p>155</p>
+                    </Rank>
+                    <Rank>
+                        <JustRank>
+                            <p>4</p>
+                            <RankImg src={감기}/>
+                            <p>추혜연</p>
+                        </JustRank>
+                        <p>140</p>
+                    </Rank>
+                    <Rank>
+                        <JustRank>
+                            <p>5</p>
+                            <RankImg src={독감}/>
+                            <p>김승원</p>
+                        </JustRank>
+                        <p>135</p>
+                    </Rank>
+                </List>
+                <JustButton><p onClick={() => navigate(-1)}>돌아가기</p></JustButton>
             </JustCover>}
         </>
     )
@@ -101,8 +152,85 @@ const Quiz = () => {
 
 export default Quiz;
 
+const JustButton = styled.div`
+  width: 328px;
+  height: 48px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  position: fixed;
+  bottom: 24px;
+  background-color: ${theme.color.main500};
+
+  > p {
+    font: ${theme.font.Body1};
+    color: white;
+  }
+`
+const RankImg = styled.div<{ src: string }>`
+  width: 32px;
+  height: 32px;
+  background-image: url(${props => props.src});
+  background-position: center center;
+  background-size: 75%;
+  border-radius: 100%;
+  background-repeat: no-repeat;
+  background-color: white;
+`
+const JustRank = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  p {
+    font: ${theme.font.Body1};
+  }
+
+  > p:first-child {
+    width: 18px;
+  }
+`
+const Rank = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 8px;
+  background-color: ${theme.color.gray300};
+  padding: 8px 12px;
+  width: 100%;
+
+  > p:last-child {
+    font: ${theme.font.Body3};
+  }
+`
+const List = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  padding: 0 16px 64px;
+
+  > p:first-child {
+    font: ${theme.font.Body3};
+    color: ${theme.color.gray800};
+  }
+`
 const TexutuDiv = styled.div`
-  
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  margin: 8px 0 24px;
+
+  > p:first-child {
+    font: ${theme.font.Body3};
+    color: ${theme.color.gray800};
+    padding-bottom: 4px;
+  }
+
+  > p:last-child {
+    font: ${theme.font.Heading5};
+  }
 `
 const JustImg = styled.img`
   width: 190px;
@@ -113,13 +241,11 @@ const JustCover = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 24px;
   padding: 24px 0;
 
   > p:first-child {
     font: ${theme.font.Body3};
     color: ${theme.color.gray800};
-    margin: -24px;
   }
 `
 const ChooseDiv = styled.div`
