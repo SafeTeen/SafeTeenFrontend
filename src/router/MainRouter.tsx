@@ -12,17 +12,15 @@ const MainRouter = () => {
         <Routes>
             <Route path="/">
                 <Route index element={<Main/>}/>
-                <Route path="game/">
-                    <Route index element={<Game/>}/>
-                    <Route path="quiz" element={<Quiz/>}/>
-                    <Route path="simulation" element={<Simulation/>}/>
-                </Route>
                 <Route path="info" element={<Info/>}/>
                 <Route path="store" element={<Store/>}/>
                 <Route path="mypage" element={<MyPage/>}/>
+                <Route path="/game" element={<Game/>}/>
+                <Route path="/quiz" element={<Quiz/>}/>
+                <Route path="/simulation" element={<Simulation/>}/>
             </Route>
         </Routes>
-    );
-};
+    )
+}
 
 export default MainRouter;
