@@ -3,7 +3,6 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
-import { ReactQueryDevtools } from "react-query/devtools";
 import { ThemeProvider } from "styled-components";
 import { theme } from "./styles/theme";
 import GlobalStyle from "./styles/GlobalStyle";
@@ -18,7 +17,6 @@ root.render(
     <ThemeProvider theme={theme}>
       <GlobalStyle />
       <QueryClientProvider client={queryClient}>
-        <ReactQueryDevtools initialIsOpen={true} />
         <BrowserRouter>
           <App />
         </BrowserRouter>
