@@ -1,7 +1,8 @@
 const Font = (
   w: number,
-  p: number
-) => `${w} normal ${p}px "pretendard",sans-serif
+  p: number,
+  h: number
+) => `${w} normal ${p}px/${h}px "pretendard",sans-serif
 `;
 
 export const theme = {
@@ -23,16 +24,16 @@ export const theme = {
     systemRed: "#F04D51",
   },
   font: {
-    Heading1: Font(700, 40),
-    Heading2: Font(700, 36),
-    Heading3: Font(700, 32),
-    Heading4: Font(500, 28),
-    Heading5: Font(500, 24),
-    Heading6: Font(500, 20),
-    Body1: Font(500, 16),
-    Body2: Font(400, 16),
-    Body3: Font(500, 14),
-    Body4: Font(400, 14),
-    Caption: Font(400, 12),
+    Heading1: Font(700, 40, 60),
+    Heading2: Font(700, 36, 54),
+    Heading3: Font(700, 32, 48),
+    Heading4: Font(500, 28, 40),
+    Heading5: Font(500, 24, 36),
+    Heading6: Font(500, 20, 28),
+    Body1: Font(500, 16, 24),
+    Body2: Font(400, 16, 24),
+    Body3: Font(500, 14, 20),
+    Body4: Font(400, 14, 20),
+    Caption: Font(400, 12, 18),
   },
 };

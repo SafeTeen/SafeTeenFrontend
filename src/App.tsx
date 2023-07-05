@@ -1,5 +1,9 @@
-function App() {
-  return <p>app</p>;
+import MainRouter from "./router/MainRouter";
+
+const App = () => {
+    return (
+        <MainRouter/>
+    )
 }
 
 export default App;
