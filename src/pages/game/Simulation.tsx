@@ -166,7 +166,7 @@ const SimulationItem = styled.div`
 const AnswerContainer = styled.div`
   position: fixed;
   width: 328px;
-  bottom: 280px;
+  bottom: 180px;
   display: flex;
   flex-direction: column;
   gap: 8px;

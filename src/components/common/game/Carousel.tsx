@@ -76,7 +76,7 @@ const Carousel = () => {
 };
 
 const StyledSlider = styled(Slider)`
-  margin-top: 160px;
+  margin-top: 60px;
   .slick-arrow {
     z-index: 100;
     width: 24px;

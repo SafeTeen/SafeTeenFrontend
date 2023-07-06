@@ -19,7 +19,7 @@ const Rating = ({ score }: Props) => {
 
 const HeartContainer = styled.div`
   position: fixed;
-  bottom: 528px;
+  bottom: 428px;
   display: flex;
   gap: 8px;
 `;
