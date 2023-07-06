@@ -147,7 +147,7 @@ const SimulationItem = styled.div`
   flex-direction: column;
   align-items: center;
   width: 328px;
-  height: calc(100vh - 56px);
+  height: calc(100vh - 124px);
   margin: 0 auto;
   margin-top: 4px;
   > p {
@@ -166,7 +166,7 @@ const SimulationItem = styled.div`
 const AnswerContainer = styled.div`
   position: fixed;
   width: 328px;
-  bottom: 12px;
+  bottom: 80px;
   display: flex;
   flex-direction: column;
   gap: 8px;
