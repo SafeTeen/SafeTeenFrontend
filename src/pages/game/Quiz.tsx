@@ -82,7 +82,7 @@ const Quiz = () => {
   useEffect(() => {
     if (userCount >= 5) {
       setExText("곧 시작합니다!");
-      setTimeout(() => setPage("playing"), 4000);
+      setTimeout(() => setPage("playing"), 1000);
     }
   }, [userCount]);
 
@@ -105,7 +105,7 @@ const Quiz = () => {
         setShowed(false);
         setTime(10);
       }
-    }, 3000);
+    }, 1000);
   };
 
   return (
@@ -459,7 +459,7 @@ const up3 = keyframes`
   }
 `;
 const WaitText = styled.p`
-  font: ${theme.font.Caption};
+  font: ${theme.font.Body4};
   color: ${theme.color.gray800};
   animation: ease ${up3} 1.6s;
 `;
