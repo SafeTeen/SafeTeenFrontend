@@ -1,10 +1,14 @@
 import React, {useEffect, useState} from "react";
 import TopBar from "../../components/common/TopBar";
 import {useNavigate, useSearchParams} from "react-router-dom";
-import styled from "styled-components";
+import styled, {keyframes} from "styled-components";
 import fire from "../../assets/img/fire.png";
+import kickBoard from "../../assets/img/kickBoard.png";
+import wind from "../../assets/img/wind.png";
+import motorcycle from "../../assets/img/motorcycle.png";
 import {theme} from "../../styles/theme";
 import {problemType, 화재대응퀴즈} from "../../assets/Problem/fire";
+import {전동킥보드} from "../../assets/Problem/kick";
 import SelectButton from "../../components/common/game/SelectButton";
 import 건강검진이상무 from "../../assets/img/rjsrkdrjawlsdltkdan.png";
 import 허리디스크 from "../../assets/img/gjfleltmzm.png";
@@ -20,17 +24,44 @@ const Quiz = () => {
     const [currentIdx, setCurrentIdx] = useState<number>(0);
     const [disabled, setDisabled] = useState<boolean>(false);
     const [showed, setShowed] = useState<boolean>(false);
+    const [quizImg, setQuizImg] = useState<string>(fire);
+    const [animText, setAnimText] = useState<string>('.');
+    const [exText, setExText] = useState<string>("다른 플레이어를 기다리는 중이에요");
     const [searchParams] = useSearchParams();
     const title = searchParams.get('title');
 
     const navigate = useNavigate();
 
     const whatQuiz = () => {
-        if (title === "화재 대응") return 화재대응퀴즈[currentIdx];
-        else return 화재대응퀴즈[currentIdx];
+        if (title === "화재 대응") {
+            return 화재대응퀴즈[currentIdx];
+        } else if (title === "전동 킥보드") {
+            return 전동킥보드[currentIdx];
+        } else return 화재대응퀴즈[currentIdx];
     }
 
     const {problem, choose, collect}: problemType = whatQuiz();
+
+    useEffect(() => {
+        if (title === "화재 대응") {
+            setQuizImg(fire);
+        } else if (title === "전동 킥보드") {
+            setQuizImg(kickBoard);
+        } else if (title === "태풍 피해 예방") {
+            setQuizImg(wind);
+        } else if (title === "오토바이") {
+            setQuizImg(motorcycle);
+        }
+    }, [title]);
+
+    useEffect(() => {
+        if (page === "waiting") {
+            const text = setInterval(() => {
+                setAnimText(a => a === "." ? ".." : a === ".." ? "..." : a === "..." ? "." : a);
+            }, 600);
+            return () => clearInterval(text);
+        }
+    }, [animText, page])
 
     useEffect(() => {
         if (showed) return;
@@ -43,24 +74,24 @@ const Quiz = () => {
         if (time <= 0) {
             compare(undefined);
         }
-
-    }, [time, currentIdx, page])
+    }, [time, currentIdx, page, showed])
 
     useEffect(() => {
         if (userCount >= 5) {
+            setExText("곧 시작합니다!");
             setTimeout(() => setPage('playing'), 4000);
         }
     }, [userCount])
 
-    document.onkeydown = (e) => {
-        if (e.key === '=' || e.key === '+') setUserCount(prev => prev + 1 <= 5 ? prev + 1 : prev);
+    const plus = () => {
+        setUserCount(prev => prev + 1 <= 5 ? prev + 1 : prev);
     }
 
     const compare = (i: number | undefined) => {
         setShowed(true);
         setDisabled(true);
-        if (i === collect && currentIdx < 9) setPoint(prev => prev + 20);
-        else if (i !== collect && currentIdx < 9) setPoint(prev => prev - 5);
+        if (i === collect && currentIdx <= 9) setPoint(prev => prev + 20);
+        else if (i !== collect && currentIdx <= 9) setPoint(prev => prev - 5);
         setTimeout(() => {
             setCurrentIdx(prev => prev + 1 < 10 ? prev + 1 : prev);
             setDisabled(false);
@@ -77,12 +108,12 @@ const Quiz = () => {
         <>
             <TopBar title={title}/>
             {page === 'waiting' && <WaitDiv>
-                <Img src={fire}/>
-                <TextDiv>
+                <Img src={quizImg}/>
+                <TextDiv onClick={plus}>
                     <p>{userCount}</p>
                     <p>/10</p>
                 </TextDiv>
-                <p>다른 플레이어를 기다리는 중이에요...</p>
+                <WaitText>{exText}{exText === "다른 플레이어를 기다리는 중이에요" && animText}</WaitText>
             </WaitDiv>}
             {page === 'playing' && <Cover>
                 <p>문제 {currentIdx + 1}/10</p>
@@ -100,7 +131,7 @@ const Quiz = () => {
                 </ProblemDiv>
             </Cover>}
             {page === 'ending' && <JustCover>
-                <JustImg src={fire}/>
+                <JustImg src={quizImg}/>
                 <p>모든 문제가 끝났어요!</p>
                 <TexutuDiv>
                     <p>{userCount}명 중</p>
@@ -122,7 +153,7 @@ const Quiz = () => {
                             <RankImg src={허리디스크}/>
                             <p>박휘웅</p>
                         </JustRank>
-                        <p>160</p>
+                        <p>135</p>
                     </Rank>
                     <Rank>
                         <JustRank>
@@ -130,7 +161,7 @@ const Quiz = () => {
                             <RankImg src={심장마비}/>
                             <p>정승훈</p>
                         </JustRank>
-                        <p>155</p>
+                        <p>120</p>
                     </Rank>
                     <Rank>
                         <JustRank>
@@ -138,7 +169,7 @@ const Quiz = () => {
                             <RankImg src={감기}/>
                             <p>추혜연</p>
                         </JustRank>
-                        <p>140</p>
+                        <p>115</p>
                     </Rank>
                     <Rank>
                         <JustRank>
@@ -146,10 +177,10 @@ const Quiz = () => {
                             <RankImg src={독감}/>
                             <p>김승원</p>
                         </JustRank>
-                        <p>135</p>
+                        <p>100</p>
                     </Rank>
                 </List>
-                <JustButton><p onClick={() => navigate(-1)}>돌아가기</p></JustButton>
+                <JustButton onClick={() => navigate(-1)}><p>돌아가기</p></JustButton>
             </JustCover>}
         </>
     )
@@ -157,8 +188,9 @@ const Quiz = () => {
 
 export default Quiz;
 
+
 const JustButton = styled.div`
-  width: 328px;
+  width: calc(100% - 32px);
   height: 48px;
   display: flex;
   justify-content: center;
@@ -209,16 +241,38 @@ const Rank = styled.div`
     font: ${theme.font.Body3};
   }
 `
+const up6 = keyframes`
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+`
 const List = styled.div`
   display: flex;
   flex-direction: column;
   gap: 8px;
   width: 100%;
   padding: 0 16px 64px;
+  animation: ease ${up6} 1s;
 
   > p:first-child {
     font: ${theme.font.Body3};
     color: ${theme.color.gray800};
+  }
+`
+const up5 = keyframes`
+  0% {
+    margin-top: 40px;
+    opacity: 0;
+  }
+  100% {
+    margin-top: 8px;
+    opacity: 1;
   }
 `
 const TexutuDiv = styled.div`
@@ -226,6 +280,7 @@ const TexutuDiv = styled.div`
   align-items: flex-end;
   gap: 8px;
   margin: 8px 0 24px;
+  animation: ease ${up5} 0.6s;
 
   > p:first-child {
     font: ${theme.font.Body3};
@@ -237,10 +292,21 @@ const TexutuDiv = styled.div`
     font: ${theme.font.Heading5};
   }
 `
+const up4 = keyframes`
+  0% {
+    margin: 40px 0 24px;
+    opacity: 0;
+  }
+  100% {
+    margin: 0;
+    opacity: 1;
+  }
+`
 const JustImg = styled.img`
   width: 190px;
   height: 190px;
   object-fit: cover;
+  animation: ease ${up4} 0.6s;
 `
 const JustCover = styled.div`
   display: flex;
@@ -300,11 +366,22 @@ const Cover = styled.div`
     margin-bottom: -12px;
   }
 `
+const up2 = keyframes`
+  0% {
+    margin-top: 40px;
+    opacity: 0;
+  }
+  100% {
+    margin-top: 16px;
+    opacity: 1;
+  }
+`
 const TextDiv = styled.div`
   display: flex;
   gap: 6px;
   align-items: flex-end;
   margin: 16px 0;
+  animation: ease ${up2} 0.6s;
 
   > p:first-child {
     font: ${theme.font.Heading4};
@@ -314,6 +391,16 @@ const TextDiv = styled.div`
     font: ${theme.font.Heading6};
     color: ${theme.color.gray700};
     padding-bottom: 3px;
+  }
+`
+const up = keyframes`
+  0% {
+    margin-top: 200px;
+    opacity: 0;
+  }
+  100% {
+    margin-top: 115px;
+    opacity: 1;
   }
 `
 const Img = styled.div<{ src: string }>`
@@ -326,14 +413,26 @@ const Img = styled.div<{ src: string }>`
   border-radius: 100%;
   background-color: ${theme.color.gray100};
   margin-top: 115px;
+  animation: ease ${up} 0.6s;
 `
 const WaitDiv = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  > p:last-child {
-    font: ${theme.font.Caption};
-    color: ${theme.color.gray800};
+`
+const up3 = keyframes`
+  0% {
+    opacity: 0;
   }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+`
+const WaitText = styled.p`
+  font: ${theme.font.Caption};
+  color: ${theme.color.gray800};
+  animation: ease ${up3} 1.6s;
 `

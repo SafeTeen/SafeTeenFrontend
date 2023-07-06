@@ -1,6 +1,5 @@
 import { useState } from "react";
 import styled from "styled-components";
-import BottomFixedTab from "../components/common/BottomFixedTab";
 import ElementBox from "../components/common/ElementBox";
 import fire from "../assets/img/fire.png";
 import board from "../assets/img/kickBoard.png";
