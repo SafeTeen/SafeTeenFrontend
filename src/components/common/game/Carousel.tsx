@@ -76,7 +76,7 @@ const Carousel = () => {
 };
 
 const StyledSlider = styled(Slider)`
-  margin-top: 32px;
+  margin-top: 160px;
   .slick-arrow {
     z-index: 100;
     width: 24px;
@@ -107,7 +107,7 @@ const StyledSlider = styled(Slider)`
   }
   .slick-dots {
     position: fixed;
-    bottom: 76px;
+    bottom: 100px;
     left: 0;
     z-index: 101 !important;
     li {
