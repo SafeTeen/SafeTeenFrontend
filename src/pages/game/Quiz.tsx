@@ -91,7 +91,7 @@ const Quiz = () => {
         setShowed(true);
         setDisabled(true);
         if (i === collect && currentIdx <= 9) setPoint(prev => prev + 20);
-        else if (i !== collect && currentIdx <= 9) setPoint(prev => prev - 5);
+        else if (i !== collect && currentIdx <= 9) setPoint(prev => prev - 5 <= 0 ? prev : prev - 5);
         setTimeout(() => {
             setCurrentIdx(prev => prev + 1 < 10 ? prev + 1 : prev);
             setDisabled(false);
@@ -358,7 +358,7 @@ const Cover = styled.div`
   display: flex;
   flex-direction: column;
   padding: 12px 16px;
-  height: 88vh;
+  height: 72vh;
   gap: 20px;
 
   > p:first-child {
