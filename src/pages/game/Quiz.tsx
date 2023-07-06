@@ -349,6 +349,7 @@ const JustCover = styled.div`
 const ChooseDiv = styled.div`
   height: fit-content;
   display: flex;
+  margin-top: 20px;
   gap: 8px;
   flex-direction: column;
 `;
@@ -373,11 +374,9 @@ const InfoDiv = styled.div`
   gap: 16px;
 `;
 const ProblemDiv = styled.div`
-  height: 70%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-
   > p {
     font: ${theme.font.Body2};
   }
