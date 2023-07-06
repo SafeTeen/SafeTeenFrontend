@@ -179,13 +179,13 @@ const AnswerContainer = styled.div`
 
 const ResultContainer = styled.div`
   width: calc(100vw - 32px);
-  height: calc(100vh - 96px);
+  height: calc(100vh - 200px);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
   margin: 0 auto;
-  margin-top: 20px;
+  margin-top: 40px;
   @keyframes fadein {
     0% {
       transform: translateY(28px);
