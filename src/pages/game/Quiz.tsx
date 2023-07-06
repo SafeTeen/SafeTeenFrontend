@@ -168,7 +168,7 @@ const Quiz = () => {
               <JustRank>
                 <p>1</p>
                 <RankImg src={건강검진이상무} />
-                <p>최승우</p>
+                <p>정승훈</p>
               </JustRank>
               <p>{point}</p>
             </Rank>
@@ -176,17 +176,17 @@ const Quiz = () => {
               <JustRank>
                 <p>2</p>
                 <RankImg src={허리디스크} />
-                <p>박휘웅</p>
+                <p>김승원</p>
               </JustRank>
-              <p>135</p>
+              <p>35</p>
             </Rank>
             <Rank>
               <JustRank>
                 <p>3</p>
                 <RankImg src={심장마비} />
-                <p>정승훈</p>
+                <p>최승우</p>
               </JustRank>
-              <p>120</p>
+              <p>30</p>
             </Rank>
             <Rank>
               <JustRank>
@@ -194,15 +194,15 @@ const Quiz = () => {
                 <RankImg src={감기} />
                 <p>추혜연</p>
               </JustRank>
-              <p>115</p>
+              <p>20</p>
             </Rank>
             <Rank>
               <JustRank>
                 <p>5</p>
                 <RankImg src={독감} />
-                <p>김승원</p>
+                <p>박휘응</p>
               </JustRank>
-              <p>100</p>
+              <p>15</p>
             </Rank>
           </List>
           <JustButton onClick={() => navigate(-1)}>
