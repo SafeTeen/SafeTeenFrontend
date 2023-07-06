@@ -167,7 +167,7 @@ const Quiz = () => {
             <Rank>
               <JustRank>
                 <p>1</p>
-                <RankImg src={건강검진이상무} />
+                <RankImg src={심장마비} />
                 <p>정승훈</p>
               </JustRank>
               <p>{point}</p>
